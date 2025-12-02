@@ -6,8 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class AIBasedCareerRecommendationSystemApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(AIBasedCareerRecommendationSystemApplication.class, args);
-	}
+    public static void main(String[] args) {
+
+        SpringApplication.run(AIBasedCareerRecommendationSystemApplication.class, args);
+        System.out.println("AI-Based Career Recommendation System");
+    }
 
 }
