@@ -2,6 +2,7 @@ package com.college.career.AI_BasedCareerRecommendationSystem.Entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 import java.util.Map;
 
@@ -16,26 +17,28 @@ public class QuizResponse {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "quiz_id", nullable = false)
     private Quiz quiz;
 
-    @Column(nullable = false)
+    @Column(name = "score", nullable = false)
     private Integer score;
 
     @Column(nullable = false)
     private Double percentage;
 
-    @Column(nullable = false)
-    private LocalDateTime completedAt = LocalDateTime.now();
+    // ✅ FIXED: Replace LocalDateTime.now()
+    @CreationTimestamp
+    @Column(name = "completed_at", nullable = false, updatable = false)
+    private LocalDateTime completedAt;
 
-    @ElementCollection // tells that field in not an entity
+    @ElementCollection
     @CollectionTable(name = "quiz_response_answers", joinColumns = @JoinColumn(name = "response_id"))
-    @MapKeyColumn(name = "question_id") // key in map
-    @Column(name = "selected_option")  // value in map
+    @MapKeyColumn(name = "question_id")
+    @Column(name = "selected_option")
     private Map<Long, Integer> answers;
 }

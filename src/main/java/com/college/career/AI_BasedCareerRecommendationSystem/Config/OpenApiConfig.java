@@ -17,7 +17,7 @@ public class OpenApiConfig {
     public OpenAPI defineOpenApi() {
 
         Server server = new Server()
-                .url("http://localhost:8080")   // FIXED: removed /api
+                .url("http://localhost:8080")
                 .description("Development Server");
 
         Contact myContact = new Contact()

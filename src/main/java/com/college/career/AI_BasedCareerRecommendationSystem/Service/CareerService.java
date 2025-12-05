@@ -23,7 +23,7 @@ public class CareerService {
             throw new RuntimeException("Career already exists");
         }
 
-        Career career = Career.builder()
+        Career career = Career.builder()  // Convert CareerDTO → Career Entity using Builder pattern
                 .name(careerDTO.getName())
                 .description(careerDTO.getDescription())
                 .requiredSkills(careerDTO.getRequiredSkills())

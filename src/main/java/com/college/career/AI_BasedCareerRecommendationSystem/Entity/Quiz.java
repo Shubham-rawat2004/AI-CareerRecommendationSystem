@@ -2,6 +2,8 @@ package com.college.career.AI_BasedCareerRecommendationSystem.Entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -25,17 +27,17 @@ public class Quiz {
     @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<QuizQuestion> questions;
 
-    @Column(nullable = false)
+    @Column(name = "is_active", nullable = false)
     private Boolean isActive = true;
 
-    @Column(nullable = false)
-    private LocalDateTime createdAt = LocalDateTime.now();
+    // ✅ FIXED: Replace LocalDateTime.now()
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
 
-    @Column(nullable = false)
-    private LocalDateTime updatedAt = LocalDateTime.now();
+    @UpdateTimestamp
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt;
 
-    @PreUpdate
-    protected void onUpdate() {
-        this.updatedAt = LocalDateTime.now();
-    }
+    // ✅ Remove @PreUpdate - @UpdateTimestamp handles it
 }

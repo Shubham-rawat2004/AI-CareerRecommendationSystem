@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ApiResponse<T> {
+public class ApiResponse<T> { // for showing success and failure message
 
     private Boolean success;
     private String message;
