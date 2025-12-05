@@ -2,6 +2,8 @@ package com.college.career.AI_BasedCareerRecommendationSystem.Entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
 
 @Entity
@@ -15,26 +17,32 @@ public class Recommendation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "career_id", nullable = false)
     private Career career;
 
-    @Column(nullable = false)
+    @Column(name = "match_score", nullable = false)
     private Double matchScore;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(name = "match_reason", columnDefinition = "TEXT")
     private String matchReason;
-
-    @Column(nullable = false)
-    private LocalDateTime createdAt = LocalDateTime.now();
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private RecommendationStatus status = RecommendationStatus.PENDING;
+
+    // ✅ FIXED: Remove LocalDateTime.now()
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt;
 
     public enum RecommendationStatus {
         PENDING, ACCEPTED, REJECTED

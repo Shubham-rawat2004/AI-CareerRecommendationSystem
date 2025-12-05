@@ -2,6 +2,8 @@ package com.college.career.AI_BasedCareerRecommendationSystem.Entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -20,13 +22,12 @@ public class StudentProfile {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @Column(nullable = false)
+    @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column(nullable = false)
+    @Column(name = "academic_branch")
     private String academicBranch;
 
-    @Column(nullable = false)
     private Double cgpa;
 
     @Column(columnDefinition = "TEXT")
@@ -42,14 +43,14 @@ public class StudentProfile {
     @Column(name = "skill")
     private List<String> skills;
 
-    @Column(nullable = false)
-    private LocalDateTime createdAt = LocalDateTime.now();
+    // ✅ FIXED: Remove LocalDateTime.now() + Add Hibernate annotations
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
 
-    @Column(nullable = false)
-    private LocalDateTime updatedAt = LocalDateTime.now();
+    @UpdateTimestamp
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt;
 
-    @PreUpdate
-    protected void onUpdate() {
-        this.updatedAt = LocalDateTime.now();
-    }
+    // ✅ Remove @PreUpdate - @UpdateTimestamp handles it
 }
