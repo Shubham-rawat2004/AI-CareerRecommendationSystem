@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -39,7 +40,6 @@ public class Career {
     @Column(name = "is_active", nullable = false)
     private Boolean isActive = true;
 
-    // ✅ FIXED: Remove LocalDateTime.now()
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -48,8 +48,10 @@ public class Career {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
+//    Cascade means what happens to child objects (Recommendation) when parent (Career) changes
+    // This controls WHEN recommendations are loaded from the database.
+
     @OneToMany(mappedBy = "career", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Recommendation> recommendations;
 
-    // ✅ Remove @PreUpdate - @UpdateTimestamp handles it
 }

@@ -30,7 +30,6 @@ public class Quiz {
     @Column(name = "is_active", nullable = false)
     private Boolean isActive = true;
 
-    // ✅ FIXED: Replace LocalDateTime.now()
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -39,5 +38,4 @@ public class Quiz {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
-    // ✅ Remove @PreUpdate - @UpdateTimestamp handles it
 }

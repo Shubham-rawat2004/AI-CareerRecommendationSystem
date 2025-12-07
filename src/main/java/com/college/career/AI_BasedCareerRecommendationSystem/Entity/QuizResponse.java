@@ -17,7 +17,7 @@ public class QuizResponse {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY) //  user object loads only when accessed, not automatically.
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
@@ -31,11 +31,11 @@ public class QuizResponse {
     @Column(nullable = false)
     private Double percentage;
 
-    // ✅ FIXED: Replace LocalDateTime.now()
     @CreationTimestamp
     @Column(name = "completed_at", nullable = false, updatable = false)
     private LocalDateTime completedAt;
 
+    // @ElementCollection is used in JPA/Hibernate to store a collection of simple values (not entities) in a separate table.
     @ElementCollection
     @CollectionTable(name = "quiz_response_answers", joinColumns = @JoinColumn(name = "response_id"))
     @MapKeyColumn(name = "question_id")
