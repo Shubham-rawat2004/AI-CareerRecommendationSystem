@@ -1,9 +1,12 @@
 package com.college.career.AI_BasedCareerRecommendationSystem.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -19,6 +22,7 @@ public class StudentProfile {
     private Long id;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
@@ -43,7 +47,6 @@ public class StudentProfile {
     @Column(name = "skill")
     private List<String> skills;
 
-    // ✅ FIXED: Remove LocalDateTime.now() + Add Hibernate annotations
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -52,5 +55,4 @@ public class StudentProfile {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
-    // ✅ Remove @PreUpdate - @UpdateTimestamp handles it
 }

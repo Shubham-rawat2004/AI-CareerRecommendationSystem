@@ -1,5 +1,6 @@
 package com.college.career.AI_BasedCareerRecommendationSystem.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.List;
@@ -17,6 +18,7 @@ public class QuizQuestion {
 
     @ManyToOne
     @JoinColumn(name = "quiz_id", nullable = false)
+    @JsonBackReference
     private Quiz quiz;
 
     @Column(nullable = false)

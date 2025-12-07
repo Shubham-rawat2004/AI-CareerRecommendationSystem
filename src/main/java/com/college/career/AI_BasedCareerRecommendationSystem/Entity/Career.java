@@ -1,5 +1,6 @@
 package com.college.career.AI_BasedCareerRecommendationSystem.Entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -52,6 +53,7 @@ public class Career {
     // This controls WHEN recommendations are loaded from the database.
 
     @OneToMany(mappedBy = "career", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<Recommendation> recommendations;
 
 }
