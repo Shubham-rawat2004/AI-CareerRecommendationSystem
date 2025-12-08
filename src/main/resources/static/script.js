@@ -41,7 +41,7 @@ async function registerUser() {
             currentUser = result.data;
             showMessage('authMessage', 'Registered successfully! You are logged in.', 'success');
         } else {
-            showMessage('authMessage', '❌ ' + result.message, 'error');
+            showMessage('authMessage', + result.message, 'error');
         }
     } catch (error) {
         showMessage('authMessage', 'Network error. Is backend running?', 'error');
@@ -61,12 +61,12 @@ async function loginUser() {
         const result = await response.json();
         if (result.success) {
             currentUser = result.data;
-            showMessage('authMessage', `✅ Welcome ${result.data.firstName}!`, 'success');
+            showMessage('authMessage', ` Welcome ${result.data.firstName}!`, 'success');
         } else {
-            showMessage('authMessage', '❌ ' + result.message, 'error');
+            showMessage('authMessage', '' + result.message, 'error');
         }
     } catch (error) {
-        showMessage('authMessage', '❌ Network error. Is backend running?', 'error');
+        showMessage('authMessage', ' Network error. Is backend running?', 'error');
     }
 }
 
@@ -171,23 +171,34 @@ async function submitQuiz() {
         showMessage('quizResult', ' Failed to submit quiz', 'error');
     }
 }
-
-// Recommendations
 async function generateRecommendations() {
-    if (!currentUser) return showMessage('recommendationsContent', ' Please login first', 'error');
+    const container = document.getElementById('recommendationsContent');
 
-    document.getElementById('recommendationsContent').innerHTML = '<div class="loading"> Generating AI recommendations...</div>';
+    if (!currentUser) {
+        container.innerHTML = '<div class="error">Please login first.</div>';
+        return;
+    }
+
+    container.innerHTML = '<div class="loading">Generating AI recommendations...</div>';
 
     try {
-        const response = await fetch(`${API_BASE}/recommendations/generate/${currentUser.id}`);
+        const response = await fetch(`${API_BASE}/recommendations/generate/${currentUser.id}`, {
+            method: 'POST'
+        });
+
         const result = await response.json();
-        if (result.success) {
+
+        if (response.ok && result.success) {
             displayRecommendations(result.data);
+        } else {
+            // Show exact error from backend (e.g. "Student profile not found")
+            container.innerHTML = `<div class="error"> ${result.message || 'Failed to generate recommendations.'}</div>`;
         }
     } catch (error) {
-        document.getElementById('recommendationsContent').innerHTML = '<div class="error">Failed to generate recommendations. Complete your profile first!</div>';
+        container.innerHTML = '<div class="error">Failed to connect to server. Check if backend is running.</div>';
     }
 }
+
 
 function displayRecommendations(recommendations) {
     let html = '<h3>Top Career Recommendations</h3>';

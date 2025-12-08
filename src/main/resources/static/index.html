@@ -6,13 +6,17 @@
     <title>AI Career Recommendation System</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 <div class="container">
+
+    <!-- HEADER -->
     <div class="header">
         <h1>AI Career Recommendation System</h1>
         <p>Discover your perfect career path with AI-powered insights</p>
     </div>
 
+    <!-- NAV TABS -->
     <div class="nav-tabs">
         <button class="nav-tab active" data-tab="login">Login/Register</button>
         <button class="nav-tab" data-tab="profile">My Profile</button>
@@ -24,19 +28,23 @@
     <!-- LOGIN/REGISTER TAB -->
     <div id="login" class="tab-content active">
         <div class="card">
-            <h2> Welcome! Get Started</h2>
+            <h2>Welcome! Get Started</h2>
+
             <div class="form-group">
                 <label>Email</label>
                 <input type="email" id="loginEmail" placeholder="student@example.com">
             </div>
+
             <div class="form-group">
                 <label>Password</label>
                 <input type="password" id="loginPassword" placeholder="Enter your password">
             </div>
+
             <div style="display: flex; gap: 10px;">
                 <button class="btn" onclick="loginUser()">Login</button>
                 <button class="btn btn-secondary" onclick="registerUser()">Register</button>
             </div>
+
             <div id="authMessage"></div>
         </div>
     </div>
@@ -45,33 +53,43 @@
     <div id="profile" class="tab-content">
         <div class="card">
             <h2>Complete Your Profile</h2>
+
             <button class="btn btn-success load-profile-btn" onclick="loadProfile()">Load Profile</button>
+
             <form id="profileForm">
+
                 <div class="form-group">
                     <label>Phone Number</label>
                     <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="9876543210">
                 </div>
+
                 <div class="form-group">
                     <label>Academic Branch</label>
                     <input type="text" id="academicBranch" name="academicBranch" placeholder="e.g., Computer Science">
                 </div>
+
                 <div class="form-group">
-                    <label>CGPA (0-10)</label>
+                    <label>CGPA (0–10)</label>
                     <input type="number" id="cgpa" name="cgpa" step="0.01" min="0" max="10" placeholder="8.5">
                 </div>
+
                 <div class="form-group">
                     <label>Bio</label>
                     <textarea id="bio" name="bio" placeholder="Tell us about yourself..."></textarea>
                 </div>
+
                 <div class="form-group">
                     <label>Skills (comma separated)</label>
                     <input type="text" id="skills" name="skills" placeholder="Java, Spring Boot, JavaScript, SQL">
                 </div>
+
                 <div class="form-group">
                     <label>Interests (comma separated)</label>
                     <input type="text" id="interests" name="interests" placeholder="Web Development, AI, Data Science">
                 </div>
+
             </form>
+
             <button class="btn save-profile-btn" onclick="saveProfile()">Save Profile</button>
             <div id="profileMessage"></div>
         </div>
@@ -80,8 +98,10 @@
     <!-- QUIZ TAB -->
     <div id="quiz" class="tab-content">
         <div class="card">
-            <h2> Career Aptitude Quiz</h2>
+            <h2>Career Aptitude Quiz</h2>
+
             <button class="btn btn-success load-quiz-btn" onclick="loadQuiz()">Load Quiz</button>
+
             <div id="quizContent" class="loading">Loading quiz...</div>
             <div id="quizResult"></div>
         </div>
@@ -90,23 +110,36 @@
     <!-- RECOMMENDATIONS TAB -->
     <div id="recommendations" class="tab-content">
         <div class="card">
-            <h2>🎯 Your Career Recommendations</h2>
-            <button class="btn generate-rec-btn" onclick="generateRecommendations()">Generate New Recommendations
+            <h2> Your Career Recommendations</h2>
+
+            <!-- FIXED BUTTON -->
+            <button class="btn generate-rec-btn" onclick="generateRecommendations()">
+                Generate New Recommendations
             </button>
-            <div id="recommendationsContent" class="loading">Click above to generate AI recommendations</div>
+
+            <div id="recommendationsContent" class="loading">
+                Click above to generate AI recommendations
+            </div>
         </div>
     </div>
 
     <!-- HISTORY TAB -->
     <div id="history" class="tab-content">
         <div class="card">
-            <h2> Your History</h2>
+            <h2>Your History</h2>
+
             <button class="btn btn-secondary load-history-btn" onclick="loadHistory()">Load History</button>
-            <div id="historyContent" class="loading">Loading your history...</div>
+
+            <div id="historyContent" class="loading">
+                Loading your history...
+            </div>
         </div>
     </div>
+
 </div>
 
+<!-- MAIN SCRIPT -->
 <script src="script.js"></script>
+
 </body>
 </html>
