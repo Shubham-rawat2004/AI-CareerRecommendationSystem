@@ -21,7 +21,7 @@ public class DataSeeder {
     public String seed() {
         // Check if already seeded
         if (!quizRepo.findAll().isEmpty()) {
-            return "✅ Quizzes already exist! Test GET /quizzes";
+            return "Quizzes already exist! Test GET /quizzes";
         }
 
         try {
@@ -73,13 +73,13 @@ public class DataSeeder {
             // Save everything in transaction
             quizRepo.save(savedQuiz);
 
-            return "🎉 SUCCESS! Seeded 1 Quiz + 4 Questions!\n" +
-                    "✅ Test: GET /quizzes\n" +
-                    "✅ Test: GET /quizzes/1\n" +
-                    "✅ Test: POST /quizzes/submit/1/1";
+            return " SUCCESS! Seeded 1 Quiz + 4 Questions!\n" +
+                    "Test: GET /quizzes\n" +
+                    " Test: GET /quizzes/1\n" +
+                    " Test: POST /quizzes/submit/1/1";
 
         } catch (Exception e) {
-            return "❌ Error: " + e.getMessage();
+            return " Error: " + e.getMessage();
         }
     }
 
@@ -89,7 +89,7 @@ public class DataSeeder {
         try {
             Quiz quiz = quizRepo.findById(1L).orElse(null);
             if (quiz == null) {
-                return "❌ Quiz ID=1 not found! Run /seed-quizzes first";
+                return "Quiz ID=1 not found! Run /seed-quizzes first";
             }
 
             // Create Questions for existing quiz
