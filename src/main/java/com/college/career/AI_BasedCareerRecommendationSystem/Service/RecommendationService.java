@@ -71,7 +71,7 @@ public class RecommendationService {
     }
 
     private Double calculateMatchScore(StudentProfile profile, Career career) {
-        Double score = 0.0;
+        double score = 0.0;
 
         // CGPA factor (0-30 points)
         if (profile.getCgpa() >= 8.0) score += 30;
@@ -80,25 +80,37 @@ public class RecommendationService {
         else score += 10;
 
         // Skills match (0-40 points)
-        if (profile.getSkills() != null && !profile.getSkills().isEmpty()) {
+        if (profile.getSkills() != null && !profile.getSkills().isEmpty()
+                && career.getRequiredSkills() != null) {
+
             String careerSkills = career.getRequiredSkills().toLowerCase();
             long matchedSkills = profile.getSkills().stream()
                     .filter(skill -> careerSkills.contains(skill.toLowerCase()))
                     .count();
-            score += (matchedSkills / Math.max(1, profile.getSkills().size())) * 40;
+
+            double ratio = (double) matchedSkills / Math.max(1, profile.getSkills().size());
+            score += ratio * 40.0;
         }
 
         // Interests match (0-30 points)
         if (profile.getInterests() != null && !profile.getInterests().isEmpty()) {
-            String careerDesc = career.getDescription().toLowerCase();
+            String careerDesc = career.getDescription() != null
+                    ? career.getDescription().toLowerCase()
+                    : "";
+
             long matchedInterests = profile.getInterests().stream()
                     .filter(interest -> careerDesc.contains(interest.toLowerCase()))
                     .count();
-            score += (matchedInterests / Math.max(1, profile.getInterests().size())) * 30;
+
+            double ratio = (double) matchedInterests / Math.max(1, profile.getInterests().size());
+            score += ratio * 30.0;
         }
 
-        // Career weight factor
-        score *= (career.getRecommendationWeight() / 10.0);
+        // Career weight factor (avoid NPE and divide-by-zero)
+        int weight = career.getRecommendationWeight() != null
+                ? career.getRecommendationWeight()
+                : 10;
+        score *= (weight / 10.0);
 
         return Math.min(100.0, score);
     }

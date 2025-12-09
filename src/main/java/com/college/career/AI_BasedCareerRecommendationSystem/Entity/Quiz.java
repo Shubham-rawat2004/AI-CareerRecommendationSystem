@@ -7,6 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;  // ✅ ADDED
 import java.util.List;
 
 @Entity
@@ -26,9 +27,11 @@ public class Quiz {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    // ✅ FIXED: Initialize + proper annotations
+    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
-    private List<QuizQuestion> questions;
+    @Builder.Default  // ✅ Lombok initializes to empty list
+    private List<QuizQuestion> questions = new ArrayList<>();  // ✅ NEVER NULL
 
     @Column(name = "is_active", nullable = false)
     private Boolean isActive = true;
@@ -40,5 +43,4 @@ public class Quiz {
     @UpdateTimestamp
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
-
 }

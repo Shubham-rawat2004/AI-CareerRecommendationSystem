@@ -38,7 +38,6 @@ public class Recommendation {
     @Column(nullable = false)
     private RecommendationStatus status = RecommendationStatus.PENDING;
 
-    // ✅ FIXED: Remove LocalDateTime.now()
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
