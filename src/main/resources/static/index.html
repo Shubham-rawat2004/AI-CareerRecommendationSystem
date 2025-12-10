@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,38 +14,49 @@
     <div class="header">
         <div style="display: flex; justify-content: space-between; align-items: center;">
             <div>
-                <h1>AI Career Recommendation System</h1>
+                <h1>🚀 AI Career Recommendation System</h1>
                 <p id="userGreeting">Discover your perfect career path with AI-powered insights</p>
             </div>
             <div id="userActions" style="display: none;">
                 <span id="userName" style="color: white; font-weight: 500;"></span>
                 <button class="btn btn-secondary" onclick="logoutUser()"
-                        style="margin-left: 10px; padding: 8px 16px; font-size: 14px;">Logout
-                </button>
+                        style="margin-left: 10px; padding: 8px 16px; font-size: 14px;">Logout</button>
             </div>
         </div>
     </div>
 
     <!-- NAV TABS -->
     <div class="nav-tabs">
-        <button class="nav-tab active" data-tab="login">Login/Register</button>
-        <button class="nav-tab" data-tab="profile">My Profile</button>
-        <button class="nav-tab" data-tab="quiz">Career Quiz</button>
-        <button class="nav-tab" data-tab="recommendations">Recommendations</button>
-        <button class="nav-tab" data-tab="history">History</button>
+        <button class="nav-tab active" data-tab="login">👋 Login/Register</button>
+        <button class="nav-tab" data-tab="skillsTab">🔧 Skills Quiz</button>
+        <button class="nav-tab" data-tab="profile">📝 My Profile</button>
+        <button class="nav-tab" data-tab="quiz">🧠 Career Quiz</button>
+        <button class="nav-tab" data-tab="recommendations">🎯 Recommendations</button>
+        <button class="nav-tab" data-tab="history">📈 History</button>
+    </div>
+
+    <!-- SKILLS TAB -->
+    <div id="skillsTab" class="tab-content">
+        <div class="card">
+            <h2>📊 Skills Proficiency Assessment</h2>
+            <p>Rate your proficiency level for each skill from your profile (Advanced = Career Boost! 🚀)</p>
+            <button class="btn btn-success" onclick="loadSkillsQuiz()">🎯 Generate Skills Quiz</button>
+            <div id="skillsQuizContent" class="loading">Click above to assess your skills</div>
+            <div id="skillsQuizResult"></div>
+        </div>
     </div>
 
     <!-- LOGIN/REGISTER TAB -->
     <div id="login" class="tab-content active">
         <div class="card">
-            <h2>Welcome! Get Started </h2> </br>
+            <h2>Welcome! Get Started</h2>
             <div class="form-group">
                 <label>Email</label>
-                <input type="email" id="loginEmail" placeholder="student@example.com">
+                <input type="email" id="loginEmail" placeholder="student@example.com" required>
             </div>
             <div class="form-group">
                 <label>Password</label>
-                <input type="password" id="loginPassword" placeholder="Enter your password">
+                <input type="password" id="loginPassword" placeholder="Enter your password" required>
             </div>
             <div style="display: flex; gap: 10px;">
                 <button class="btn" onclick="loginUser()">Login</button>
@@ -55,10 +66,11 @@
         </div>
     </div>
 
-    <!-- PROFILE TAB - FIXED SINGLE BUTTON -->
+    <!-- PROFILE TAB -->
     <div id="profile" class="tab-content">
         <div class="card">
-            <h2>Complete Your Profile</h2>
+            <h2>📝 Complete Your Profile</h2>
+            <p><strong>Tip:</strong> Add skills like "Java, Python, Docker" for better recommendations!</p>
             <button class="btn btn-secondary" onclick="loadProfile()">↻ Load Profile</button>
             <form id="profileForm">
                 <div class="form-group">
@@ -78,11 +90,11 @@
                     <textarea id="bio" name="bio" placeholder="Tell us about yourself..."></textarea>
                 </div>
                 <div class="form-group">
-                    <label>Skills (comma separated)</label>
-                    <input type="text" id="skills" name="skills" placeholder="Java, Spring Boot, JavaScript, SQL">
+                    <label>Skills <small>(comma separated)</small></label>
+                    <input type="text" id="skills" name="skills" placeholder="Java, Spring Boot, JavaScript, SQL, Docker">
                 </div>
                 <div class="form-group">
-                    <label>Interests (comma separated)</label>
+                    <label>Interests <small>(comma separated)</small></label>
                     <input type="text" id="interests" name="interests" placeholder="Web Development, AI, Data Science">
                 </div>
             </form>
@@ -91,10 +103,10 @@
         </div>
     </div>
 
-    <!-- QUIZ TAB -->
+    <!-- CAREER QUIZ TAB -->
     <div id="quiz" class="tab-content">
         <div class="card">
-            <h2>Career Aptitude Quiz</h2>
+            <h2>🧠 Career Aptitude Quiz</h2>
             <button class="btn btn-success" onclick="loadQuiz()">📋 Load Quiz</button>
             <div id="quizContent" class="loading">Loading quiz...</div>
             <div id="quizResult"></div>
@@ -104,9 +116,9 @@
     <!-- RECOMMENDATIONS TAB -->
     <div id="recommendations" class="tab-content">
         <div class="card">
-            <h2>Your Career Recommendations</h2>
-            <button class="btn generate-rec-btn" onclick="generateRecommendations()">✨ Generate New Recommendations
-            </button>
+            <h2>🎯 Your Career Recommendations</h2>
+            <p><em>Complete Skills Quiz → Profile → Generate for best results!</em></p>
+            <button class="btn generate-rec-btn" onclick="generateRecommendations()">✨ Generate New Recommendations</button>
             <div id="recommendationsContent" class="loading">Click above to generate AI recommendations</div>
         </div>
     </div>
@@ -114,8 +126,8 @@
     <!-- HISTORY TAB -->
     <div id="history" class="tab-content">
         <div class="card">
-            <h2>Your History</h2>
-            <button class="btn btn-secondary" onclick="loadHistory()">📈 Load History</button>
+            <h2>📈 Your Activity History</h2>
+            <button class="btn btn-secondary" onclick="loadHistory()">📊 Load History</button>
             <div id="historyContent" class="loading">Loading your history...</div>
         </div>
     </div>

@@ -74,7 +74,7 @@ public class DataSeeder {
     @Transactional
     public String seedCareers() {
         if (!careerRepo.findAll().isEmpty()) {
-            return "❌ Careers exist! DELETE FROM careers; first";
+            return "Careers exist! DELETE FROM careers; first";
         }
 
         careerRepo.saveAll(Arrays.asList(
