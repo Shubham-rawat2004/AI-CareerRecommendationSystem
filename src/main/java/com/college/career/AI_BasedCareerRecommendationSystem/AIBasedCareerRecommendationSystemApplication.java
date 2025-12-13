@@ -7,6 +7,9 @@ public class AIBasedCareerRecommendationSystemApplication {
     public static void main(String[] args) {
         SpringApplication.run(AIBasedCareerRecommendationSystemApplication.class, args);
         System.out.println("AI-Based Career Recommendation System");
+        System.out.println(System.getProperty("java.version"));
+
+
     }
 }
 
