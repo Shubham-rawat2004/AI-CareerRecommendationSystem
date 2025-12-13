@@ -8,10 +8,9 @@ public class AIBasedCareerRecommendationSystemApplication {
         SpringApplication.run(AIBasedCareerRecommendationSystemApplication.class, args);
         System.out.println("AI-Based Career Recommendation System");
         System.out.println(System.getProperty("java.version"));
-
+    }
 
     }
-}
 
 // What features do we have till now:-
 

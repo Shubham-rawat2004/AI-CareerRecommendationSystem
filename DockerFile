@@ -1,4 +1,0 @@
-FROM openjdk:21-ea-23-jdk-bullseye
-EXPOSE 8080
-COPY target/AI-BasedCareerRecommendationSystem-0.0.1-SNAPSHOT.jar AI-BasedCareerRecommendationSystem-0.0.1-SNAPSHOT.jar
-ENTRYPOINT ["java","-jar","AI-BasedCareerRecommendationSystem-0.0.1-SNAPSHOT.jar"]
