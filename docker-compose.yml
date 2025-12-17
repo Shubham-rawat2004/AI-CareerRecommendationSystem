@@ -8,26 +8,33 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: Shub@2004
       MYSQL_DATABASE: AICareer
-    ports:
-      - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
     networks:
       - spring-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   springrest:
     build: .
     container_name: springrest
     restart: always
     depends_on:
-      - mysql-db
+      mysql-db:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
     ports:
       - "8080:8080"
     networks:
       - spring-network
 
-volumes:
-  mysql_data:
-
 networks:
   spring-network:
+    driver: bridge
+
+volumes:
+  mysql_data:
